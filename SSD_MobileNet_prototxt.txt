@@ -1704,7 +1704,7 @@ layer {
 }
 layer {
   name: "conv17_2_mbox_loc"
-  type: "Convolution"
+  type: "Convolution_reflect"
   bottom: "conv17_2"
   top: "conv17_2_mbox_loc"
   param {
@@ -1712,7 +1712,7 @@ layer {
     decay_mult: 1.0
   }
   param {
-    lr_mult: 2.0
+    lr_mult_div: 2.0
     decay_mult: 0.0
   }
   convolution_param {
@@ -1728,7 +1728,7 @@ layer {
   }
 }
 layer {
-  name: "conv17_2_mbox_loc_perm"
+  name: "conv17_2_mbox_loc_perm_merge"
   type: "Permute"
   bottom: "conv17_2_mbox_loc"
   top: "conv17_2_mbox_loc_perm"
@@ -1801,16 +1801,16 @@ layer {
   bottom: "data"
   top: "conv17_2_mbox_priorbox"
   prior_box_param {
-    min_size: 285.0
+    min_size: 295.0
     max_size: 300.0
     aspect_ratio: 2.0
     aspect_ratio: 3.0
     flip: true
     clip: false
     variance: 0.1
-    variance: 0.1
     variance: 0.2
-    variance: 0.2
+    variance: 0.3
+    variance: 0.4
     offset: 0.5
   }
 }
@@ -1866,6 +1866,7 @@ layer {
       dim: 0
       dim: -1
       dim: 21
+      axis: 3
     }
   }
 }
@@ -1897,16 +1898,5 @@ layer {
   include {
     phase: TEST
   }
-  
-
-
-
-
-
-
-
-
-
-
-  
+  Detection parameters for output
 }
